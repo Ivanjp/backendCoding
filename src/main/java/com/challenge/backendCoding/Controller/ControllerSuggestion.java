@@ -18,13 +18,9 @@ public class ControllerSuggestion {
     ServiceSuggestion serviceSuggestion;
 
     @GetMapping
-    public ResponseEntity<Object> getSuggestions(@RequestParam("q") String q) {
-        return new ResponseEntity<>(serviceSuggestion.getSuggestions(q), HttpStatus.OK);
-    }
-
-    @GetMapping
-    public ResponseEntity<Object> getSuggestions(@RequestParam("q") String q, @RequestParam("latitude") String latitude,
-            @RequestParam("longitude") String longitude) {
-        return new ResponseEntity<>(serviceSuggestion.getSuggestions(q, latitude, longitude), HttpStatus.OK);
+    public ResponseEntity<Object> getSuggestions(@RequestParam(required = true) String q, 
+            @RequestParam(required = false) String latitude,
+            @RequestParam(required = false) String longitude) {
+        return new ResponseEntity<>(serviceSuggestion.getSuggestions(q,latitude,longitude), HttpStatus.OK);
     }
 }

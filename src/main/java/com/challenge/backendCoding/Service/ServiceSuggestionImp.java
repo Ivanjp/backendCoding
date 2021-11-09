@@ -13,11 +13,6 @@ public class ServiceSuggestionImp implements ServiceSuggestion {
     RepositorySuggestion repositorySuggestion;
 
     @Override
-    public Suggestion getSuggestions(String q) {
-        return repositorySuggestion.getSuggestions(q);
-    }
-    
-    @Override
     public Suggestion getSuggestions(String q, String latitude, String longitude) {
         return repositorySuggestion.getSuggestions(q, latitude, longitude);
     }
