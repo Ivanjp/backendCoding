@@ -1,20 +1,36 @@
 package com.challenge.backendCoding.DTO;
 
+import com.opencsv.bean.CsvBindByName;
+
 public class City {
     
+    @CsvBindByName(column = "name")
     private String name;
-    private double latitud;
-    private double longitud;
+
+    @CsvBindByName(column = "admin1")
+    private String code;
+
+    @CsvBindByName(column = "country")
+    private String country;
+
+    @CsvBindByName(column = "lat")
+    private double latitude;
+
+    @CsvBindByName(column = "long")
+    private double longitude;
+    
     private double score;
     
     public City() {
     }
 
-    public City(String name, double latitud, double longitud, double score) {
+    public City(String name, double latitude, double longitude, String code, String country) {
         this.name = name;
-        this.latitud = latitud;
-        this.longitud = longitud;
-        this.score = score;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.code = code;
+        this.country = country;
+        this.score = 0.0;
     }
 
     public String getName() {
@@ -25,20 +41,20 @@ public class City {
         this.name = name;
     }
 
-    public double getLatitud() {
-        return latitud;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setLatitud(double latitud) {
-        this.latitud = latitud;
+    public void setLatitud(double latitude) {
+        this.latitude = latitude;
     }
 
-    public double getLongitud() {
-        return longitud;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setLongitud(double longitud) {
-        this.longitud = longitud;
+    public void setLongitud(double longitude) {
+        this.longitude = longitude;
     }
 
     public double getScore() {
@@ -48,4 +64,22 @@ public class City {
     public void setScore(double score) {
         this.score = score;
     }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+    
+
 }

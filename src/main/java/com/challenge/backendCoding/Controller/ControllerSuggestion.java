@@ -1,5 +1,9 @@
 package com.challenge.backendCoding.Controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import com.challenge.backendCoding.DTO.Suggestion;
 import com.challenge.backendCoding.Service.ServiceSuggestion;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +22,9 @@ public class ControllerSuggestion {
     ServiceSuggestion serviceSuggestion;
 
     @GetMapping
-    public ResponseEntity<Object> getSuggestions(@RequestParam(required = true) String q, 
+    public ResponseEntity<Suggestion> getSuggestions(@RequestParam(required = true) String q, 
             @RequestParam(required = false) String latitude,
-            @RequestParam(required = false) String longitude) {
+            @RequestParam(required = false) String longitude) throws FileNotFoundException, IOException {
         return new ResponseEntity<>(serviceSuggestion.getSuggestions(q,latitude,longitude), HttpStatus.OK);
     }
 }
