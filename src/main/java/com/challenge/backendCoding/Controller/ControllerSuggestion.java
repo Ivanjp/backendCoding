@@ -24,7 +24,7 @@ public class ControllerSuggestion {
     @GetMapping
     public ResponseEntity<Suggestion> getSuggestions(@RequestParam(required = true) String q, 
             @RequestParam(required = false) String latitude,
-            @RequestParam(required = false) String longitude) throws FileNotFoundException, IOException {
-        return new ResponseEntity<>(serviceSuggestion.getSuggestions(q,latitude,longitude), HttpStatus.OK);
+            @RequestParam(required = false) String longitude, @RequestParam(required = false) String flag) throws FileNotFoundException, IOException {
+        return new ResponseEntity<>(serviceSuggestion.getSuggestions(q,latitude,longitude,flag), HttpStatus.OK);
     }
 }

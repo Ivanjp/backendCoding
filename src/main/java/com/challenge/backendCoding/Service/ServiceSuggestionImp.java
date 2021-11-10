@@ -16,8 +16,8 @@ public class ServiceSuggestionImp implements ServiceSuggestion {
     RepositorySuggestion repositorySuggestion;
 
     @Override
-    public Suggestion getSuggestions(String q, String latitude, String longitude) throws FileNotFoundException, IOException {
-        return repositorySuggestion.getSuggestions(q, latitude, longitude);
+    public Suggestion getSuggestions(String q, String latitude, String longitude,String flag) throws FileNotFoundException, IOException {
+        return repositorySuggestion.getSuggestions(q, latitude, longitude, flag);
     }
 
 }

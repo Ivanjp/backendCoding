@@ -19,14 +19,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RepositorySuggestion {
 
-    public Suggestion getSuggestions(String q, String latitude, String longitude) throws FileNotFoundException, IOException{
+    public Suggestion getSuggestions(String q, String latitude, String longitude, String flag) throws FileNotFoundException, IOException{
         List<City> cities = mappingData();
         Suggestion sug = new Suggestion();
 
         if (longitude != null && latitude != null) {
             double str1 = Double.parseDouble(latitude);
             double str2 = Double.parseDouble(longitude);
-            sug.setSuggestions(searchAll(cities, q, str2, str1));
+            sug.setSuggestions(searchAll(cities, q, str2, str1, flag));
 
         } else if(longitude == null && latitude != null ){
 
@@ -145,31 +145,87 @@ public class RepositorySuggestion {
         return sortSuggestions(aux);
     }
 
-    private List<City> searchAll(List<City> cities, String q, double lon, double lat) {
+    private List<City> searchAll(List<City> cities, String q, double lon, double lat, String flag) {
         List<City> aux = new ArrayList<>();
         String form = "";
         int q_lenght = q.length();
 
-        for (City city : cities) {
+        System.out.println(flag);
 
-            if (city.getName().startsWith(q) && (lon <= city.getLongitude()) && (city.getLatitude() <= lat)) {
+        if (flag == null) {
+            for (City city : cities) {
 
-                form = formatString(city.getName());
+                if (city.getName().startsWith(q) && (lon <= city.getLongitude()) && (city.getLatitude() <= lat)) {
 
-                int city_lenght = form.length();
-                double score = ((double) q_lenght / (double) city_lenght);
-                city.setScore(score);
-                aux.add(city);
+                    form = formatString(city.getName());
 
-            } else if (!city.getName().startsWith(q) && city.getName().contains(q) && (lon <= city.getLongitude())
-                    && (city.getLatitude() <= lat)) {
+                    int city_lenght = form.length();
+                    double score = ((double) q_lenght / (double) city_lenght);
+                    city.setScore(score);
+                    aux.add(city);
 
-                form = formatString(city.getName());
+                } else if (!city.getName().startsWith(q) && city.getName().contains(q) && (lon <= city.getLongitude())
+                        && (city.getLatitude() <= lat)) {
 
-                int city_lenght = form.length();
-                double score = ((double) q_lenght / city_lenght);
-                city.setScore(score);
-                aux.add(city);
+                    form = formatString(city.getName());
+
+                    int city_lenght = form.length();
+                    double score = ((double) q_lenght / city_lenght);
+                    city.setScore(score);
+                    aux.add(city);
+                }
+            }
+        } else if(flag.equals("0")){
+            for (City city : cities) {
+
+                if (city.getName().startsWith(q) && (lon <= city.getLongitude()) && (city.getLatitude() <= lat)) {
+
+                    aux.add(city);
+
+                } else if (!city.getName().startsWith(q) && city.getName().contains(q) && (lon <= city.getLongitude())
+                        && (city.getLatitude() <= lat)) {
+
+                    aux.add(city);
+                }
+            }
+
+            aux.sort(Comparator.comparing(City::getLatitude).reversed());
+
+            double end = aux.get(aux.size() - 1).getLatitude();
+            double dif = lat - (end - 1.00000);
+
+            for (City city2 : aux) {
+                double dif2 = lat - city2.getLatitude();
+                double resto = dif - dif2;
+
+                double score = (resto / dif);
+                city2.setScore(score);
+            }
+            
+        }else if(flag.equals("1")){
+            for (City city : cities) {
+
+                if (city.getName().startsWith(q) && (lon <= city.getLongitude()) && (city.getLatitude() <= lat)) {
+
+                    aux.add(city);
+
+                } else if (!city.getName().startsWith(q) && city.getName().contains(q) && (lon <= city.getLongitude())
+                        && (city.getLatitude() <= lat)) {
+
+                    aux.add(city);
+                }
+            }
+
+            aux.sort(Comparator.comparing(City::getLongitude));
+
+            double last = aux.get(aux.size() - 1).getLongitude();
+            double diff = (lon - (last - -1.00000));
+
+            for (City city2 : aux) {
+                double dif2 = lon - (city2.getLongitude());
+                double resto = diff - (dif2);
+                double score = (resto / diff);
+                city2.setScore(score);
             }
         }
 

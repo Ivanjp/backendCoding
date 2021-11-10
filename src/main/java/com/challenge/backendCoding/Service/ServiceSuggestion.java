@@ -7,6 +7,6 @@ import com.challenge.backendCoding.DTO.Suggestion;
 
 public interface ServiceSuggestion {
     
-    public Suggestion getSuggestions(String q, String latitude, String longitude) 
+    public Suggestion getSuggestions(String q, String latitude, String longitude,String flag) 
             throws FileNotFoundException, IOException;
 }
