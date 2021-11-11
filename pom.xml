@@ -11,10 +11,11 @@
 	<groupId>com.challenge</groupId>
 	<artifactId>backendCoding</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>backendCoding</name>
 	<description>REST API large cities</description>
 	<properties>
-		<java.version>15</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
