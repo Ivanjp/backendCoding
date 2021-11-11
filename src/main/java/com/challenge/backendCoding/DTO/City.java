@@ -2,6 +2,9 @@ package com.challenge.backendCoding.DTO;
 
 import com.opencsv.bean.CsvBindByName;
 
+/**
+ * Clase que modela un objeto City
+ */
 public class City {
     
     @CsvBindByName(column = "name")

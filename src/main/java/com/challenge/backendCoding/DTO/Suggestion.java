@@ -2,6 +2,9 @@ package com.challenge.backendCoding.DTO;
 
 import java.util.List;
 
+/**
+ * Clase que modela un objeto Suggestion
+ */
 public class Suggestion {
     
     private List<City> suggestions;
